@@ -1,0 +1,111 @@
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: url('OpenSansBold.eot');
+	src: url('OpenSansBold.eot') format('embedded-opentype'),
+		 url('OpenSansBold.woff2') format('woff2'),
+         url('OpenSansBold.woff') format('woff'),
+         url('OpenSansBold.ttf') format('truetype'),
+         url('OpenSansBold.svg#OpenSansBold') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300;
+    src: url('OpenSansLight.eot');
+    src: url('OpenSansLight.eot') format('embedded-opentype'),
+         url('OpenSansLight.woff2') format('woff2'),
+         url('OpenSansLight.woff') format('woff'),
+         url('OpenSansLight.ttf') format('truetype'),
+         url('OpenSansLight.svg#OpenSansLight') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 700;
+    src: url('OpenSansBoldItalic.eot');
+    src: url('OpenSansBoldItalic.eot') format('embedded-opentype'),
+         url('OpenSansBoldItalic.woff2') format('woff2'),
+         url('OpenSansBoldItalic.woff') format('woff'),
+         url('OpenSansBoldItalic.ttf') format('truetype'),
+         url('OpenSansBoldItalic.svg#OpenSansBoldItalic') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 300;
+    src: url('OpenSansLightItalic.eot');
+    src: url('OpenSansLightItalic.eot') format('embedded-opentype'),
+         url('OpenSansLightItalic.woff2') format('woff2'),
+         url('OpenSansLightItalic.woff') format('woff'),
+         url('OpenSansLightItalic.ttf') format('truetype'),
+         url('OpenSansLightItalic.svg#OpenSansLightItalic') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 600;
+    src: url('OpenSansSemiboldItalic.eot');
+    src: url('OpenSansSemiboldItalic.eot') format('embedded-opentype'),
+         url('OpenSansSemiboldItalic.woff2') format('woff2'),
+         url('OpenSansSemiboldItalic.woff') format('woff'),
+         url('OpenSansSemiboldItalic.ttf') format('truetype'),
+         url('OpenSansSemiboldItalic.svg#OpenSansSemiboldItalic') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 800;
+    src: url('OpenSansExtraBold.eot');
+    src: url('OpenSansExtraBold.eot') format('embedded-opentype'),
+         url('OpenSansExtraBold.woff2') format('woff2'),
+         url('OpenSansExtraBold.woff') format('woff'),
+         url('OpenSansExtraBold.ttf') format('truetype'),
+         url('OpenSansExtraBold.svg#OpenSansExtraBold') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 800;
+    src: url('OpenSansExtraBoldItalic.eot');
+    src: url('OpenSansExtraBoldItalic.eot') format('embedded-opentype'),
+         url('OpenSansExtraBoldItalic.woff2') format('woff2'),
+         url('OpenSansExtraBoldItalic.woff') format('woff'),
+         url('OpenSansExtraBoldItalic.ttf') format('truetype'),
+         url('OpenSansExtraBoldItalic.svg#OpenSansExtraBoldItalic') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 600;
+    src: url('OpenSansSemibold.eot');
+    src: url('OpenSansSemibold.eot') format('embedded-opentype'),
+         url('OpenSansSemibold.woff2') format('woff2'),
+         url('OpenSansSemibold.woff') format('woff'),
+         url('OpenSansSemibold.ttf') format('truetype'),
+         url('OpenSansSemibold.svg#OpenSansSemibold') format('svg');
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 400;
+    src: url('OpenSansBoldItalic.eot');
+    src: url('OpenSansBoldItalic.eot') format('embedded-opentype'),
+         url('OpenSansBoldItalic.woff2') format('woff2'),
+         url('OpenSansBoldItalic.woff') format('woff'),
+         url('OpenSansBoldItalic.ttf') format('truetype'),
+         url('OpenSansBoldItalic.svg#OpenSansBoldItalic') format('svg');
+
+}
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+    src: url('OpenSansRegular.eot');
+    src: url('OpenSansRegular.eot') format('embedded-opentype'),
+         url('OpenSansRegular.woff2') format('woff2'),
+         url('OpenSansRegular.woff') format('woff'),
+         url('OpenSansRegular.ttf') format('truetype'),
+         url('OpenSansRegular.svg#OpenSansRegular') format('svg');
+}

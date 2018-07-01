@@ -39,6 +39,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css/bootstrap-dialog.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="css/fonts/OpenSans/OpenSans.css" />
 	<link href="css/basic.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -181,14 +182,7 @@
 								</select>
 							</div>
 							<br />
-							<div id="grp-resPerPage" class="form-group-sm">
-								<label for="resPerPage">Αποτελέσματα ανά σελίδα:&nbsp;</label>
-								<select style="width:92px;display:inline-block;" name="resPerPage" id="resPerPage" class="form-control">
-									<%=buildNumberList(10, 50, 10, 10)%>
-								</select>
-							</div>
-							<br />
-							<input type="hidden" name="currPage" id="currPage" value="1">
+							<input type="hidden" name="page" id="page" value="1">
 							<button id="search-submit" type="submit" class="btn btn-default-local">Αναζήτηση</button>
 							<button id="search-reset" type="reset" class="btn btn-default-local">Καθαρισμός</button>
 						</form>
@@ -209,18 +203,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Αποτελέσματα Αναζήτησης</div>
 						<div class="panel-body">
-							<div id="searchResults" style="display:block;">
-								<div class="col-md-3">
-									<div class="thumbnail">
-										<a href="/resources/images/website/fullsize/krithria_zwgrafikhs.jpg" data-toggle="lightbox" data-gallery="krithria_zwgrafikhs" data-title="Παπαδοπουλος Ιωάννης, Θεσσαλονίκη, 7 Ετών" data-footer="<strong>Θέμα: </strong>UNESCO"><img src="/resources/images/website/thumbnails/krithria_zwgrafikhs.jpg"></a>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="thumbnail">
-										<a href="/resources/images/website/fullsize/krithria_zwgrafikhs.jpg" data-toggle="lightbox" data-gallery="krithria_zwgrafikhs" data-title="Παπαδοπουλος Ιωάννης, Θεσσαλονίκη, 7 Ετών" data-footer="<strong>Θέμα: </strong>UNESCO"><img src="/resources/images/website/thumbnails/krithria_zwgrafikhs.jpg"></a>
-									</div>
-								</div>
-							</div>
+							<div id="searchResults" style="display:block;">&nbsp;</div>
 							<div id="searchLoader" style="display:none;text-align:center;">
 								<i class="fa fa-refresh fa-spin" style="margin-top:100px;font-size:68px;color:#666600;"></i>
 								<p style="margin-top:10px;color:#666600">Επεξεργασία. Παρακαλώ περιμένετε...</p>
@@ -228,12 +211,8 @@
 						</div>
 						<div class="panel-footer clearfix">
 						
-						<span id="result-pane" class="pull-left" style="width:50%;">Βρέθηκαν 3 αποτελέσματα</span>
-						<span id="result-paging" class="pull-right text-right" style="width:50%;">
-						 Σελίδα:&nbsp;
-						 <select id="results-paging" class="form-control input-sm" style="display:inline;width:60px;"><option value="1">1</option></select>				
-						 
-						</span>	
+						<span id="result-pane" class="pull-left" style="width:50%;">&nbsp;</span>
+						<span id="result-paging" class="pull-right text-right" style="width:50%;">&nbsp;</span>	
 							
 						</div>
 					</div>
@@ -244,52 +223,8 @@
 
 	<!--#include virtual="/includes/footer.inc"--> 
 	
-
-	<script>
-		$(document).ready(function () {
-		
-			$(".navbar").find(".active").removeClass("active");
-			$(".top-level2").addClass("active");
-		
-			// enable tooltips
-			$('[data-toggle="tooltip"]').tooltip();
-			
-			$(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox();
-            });
-				
-				
-			
-				
-			// print article //not working with ie
-			$("#print-article").click(function(){
-				
-				
-				$("#page-content").printThis({
-					debug: false,               // show the iframe for debugging
-					importCSS: true,            // import page CSS
-					importStyle: true,         // import style tags
-					printContainer: true,       // grab outer container as well as the contents of the selector
-					loadCSS: "/css/basic.css",  // path to additional css file - us an array [] for multiple
-					pageTitle: "",              // add title to print page
-					removeInline: false,        // remove all inline styles from print elements
-					printDelay: 333,            // variable print delay
-					header: null,               // prefix to html
-					formValues: true            // preserve input/form values
-				});
-				
-				return false;
-			});
-			
-			
-			
-			
-		});
-		
-		
-		
-	</script>
+	<script type="text/javascript" src="js/jquery.collection-search.js"></script>	
+	
 	
 </body>
 </html>

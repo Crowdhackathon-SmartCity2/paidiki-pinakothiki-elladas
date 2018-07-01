@@ -33,7 +33,7 @@ Const DBConnStr = "8ltN5pzVkOHfbeAQl+JBFTCxrtL4yoJ4zDIcgC4+KQpE5QeqKT+2LWLK80s7F
 Const defAdminName = "CPanel Administrator"
 Const defAdminEmail = "ipetridis@rhodes-hospital.gr"
 
-Const resPerPage = 20
+Const resPerPage = 10
 
 'SMTP Server Configuration
 Const SMTPServer    = "mailgate.1742.syzefxis.gov.gr"

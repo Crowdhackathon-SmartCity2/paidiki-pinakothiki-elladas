@@ -19,13 +19,18 @@
 	sqlStm = ""
 	singleResultBody = ""
 	
-	Dim artistFullName, artWorkTheme, paintingMedium
-	Dim creationYearF, creationYearT, artistAgeF, artistAgeTo
-	Dim	geoLocation, resPerPage, currPage
+	Dim artistFullName
+	Dim artWorkTheme
+	Dim paintingMedium
+	Dim creationYearF
+	Dim creationYearT
+	Dim artistAgeF
+	Dim artistAgeT
+	Dim	geoLocation
+	Dim currPage
 	
 	'Get Form data
-	currPage = CInt(Request("currPage"))
-	resPerPage = CInt(Request("resPerPage"))
+	
 	artistFullName = Request("artistFullName")
 	artWorkTheme = Request("artWorkTheme")
 	paintingMedium = Request("paintingMedium")
@@ -34,6 +39,12 @@
 	artistAgeF = CInt(Request("artistAgeFrom"))
 	artistAgeT = CInt(Request("artistAgeTo"))
 	geoLocation = Request("geoLocation")
+	
+	If Request("page") <> "" Then
+        page = CInt(Request("page"))
+    Else
+        page = 1
+    End If
 	
 	resultBody = ""
 	resultPane = ""
@@ -108,7 +119,9 @@
 			sqlStm = sqlStm & "(PlaceOfResidence = N'" & geoLocation & "') AND "
 		End If 
 		
-        Call dbAPI.executeSelectQuery(connObj, rs, sqlStm, adCmdText, qParams)
+		sqlStm = Left(sqlStm, Len(sqlStm) - 4)
+		
+        Call dbAPI.executeSelectQuery(connObj, rs, sqlStm, adCmdText, Null)
         
 
         If dbAPI.ErrorState = 1 Then
@@ -124,7 +137,7 @@
 
             If rs.BOF And rs.EOF Then
 
-                resultBody = "Η ενεργεια δεν μπορει να ολοκληρωθει."
+                resultBody = "Δεν βρέθηκαν αποτελέσματα για τα κριτήρια που ορίσατε."
 				resultPane = "Δεν βρεθηκαν αποτελεσματα"
 				resultPaging = "<select id=""results-paging"" class=""form-control input-sm"" style=""display:inline;width:60px;""><option value=""1"">1</option></select>"
 	
@@ -142,50 +155,15 @@
                 startPos = rs.AbsolutePosition
                 endPos = rs.AbsolutePosition + rs.PageSize - 1
 
-                'Lets build the header
-
-                
                 For recCounter = startPos To endPos
 
-                    If recCounter Mod 2 = 0 Then
-                        className = "evenRow"
-                    Else
-                        className = "oddRow"
-                    End If
-
-                    If rs("IsEnabled") = 1 Then
-                        light = "Green"
-                        eSwitch = "Disable"
-                        lightAltText = "Λογαριασμός Ενεργός"
-                        eSwitchAltText = "Απενεργοποίηση Λογαριασμού"
-                        eSwitchAction = 0
-                    Else
-                        light = "Red"
-                        eSwitch = "Enable"
-                        lightAltText = "Λογαριασμός Ανενεργός"
-                        eSwitchAltText = "Ενεργοποίηση Λογαριασμού"
-                        eSwitchAction = 1
-                    End If                    
-
-                    responseText = responseText & "<tr class=""" & className & """>" & vbCrLf
-                    responseText = responseText & "<td class=""dataLS"" width=""4%""><img src=""images/" & light & ".gif"" alt=""" & lightText & """ border=""0""></td>" & vbCrLf
-                    responseText = responseText & "<td class=""dataL"" width=""32%"">" & rs("FullName") & "</td>" & vbCrLf
-                    responseText = responseText & "<td class=""dataC"" width=""32%"">" & rs("UserName") & "</td>" & vbCrLf
-                    responseText = responseText & "<td class=""dataL"" width=""32%"">" & vbCrLf
-
-                
-                    If results > 1 Then
-                        responseText = responseText & "<a href=""editCPanelUser.asp?action=form&expandMenu=" & expandMenu & "&CPanelUserID=" & rs("CPanelUserID") & """><img style=""margin-left:75px;"" src=""images/Edit.gif"" title=""Ενημέρωση Στοιχείων"" alt=""Ενημέρωση Στοιχείων"" border=""0""></a>&nbsp;" & vbCrLf
-                        responseText = responseText & "<a href=""editCPanelUser.asp?action=delete&expandMenu=" & expandMenu & "&CPanelUserID=" & rs("CPanelUserID") & "&UserName=" & rs("UserName") & """ onClick=""return confirmDeleteUser('" & rs("UserName") & "')""><img src=""images/Trash.gif"" title=""Οριστική Διαγραφή Χρήστη"" alt=""Οριστική Διαγραφή Χρήστη"" border=""0""></a>" & vbCrLf
-
-                    Else
-                        responseText = responseText & "<a href=""editCPanelUser.asp?action=form&expandMenu=" & expandMenu & "&CPanelUserID=" & rs("CPanelUserID") & """><img style=""margin-left:97px;"" src=""images/Edit.gif"" title=""Ενημέρωση Στοιχείων"" alt=""Ενημέρωση Στοιχείων"" border=""0""></a>&nbsp;" & vbCrLf
-
-                    End If
-
-                    responseText = responseText & "</td>" & vbCrLf
-                    responseText = responseText & "</tr>" & vbCrLf
-
+                    resultBody = resultBody & "" & vbCrLf
+					resultBody = resultBody & "<div style=""float:left;"" class=""col-md-3"">" & vbCrLf
+					resultBody = resultBody & "<div class=""thumbnail"">" & vbCrLf
+					resultBody = resultBody & "<a href=""" & rs("ArtWorkFullsizeURL") & """ data-toggle=""lightbox"" data-gallery=""collection"" data-title=""" & rs("ArtistFullName") & ", " & rs("PlaceOfResidence") & ", " & rs("ArtistBYearUponCreation") & " ΕΤΩΝ"" data-footer=""<address><strong>Θέμα: </strong>" & rs("ArtWorkTheme") & "<br /><strong>Μέσο: </strong>" & rs("PaintingMedium") & "<br /><strong>Διαστάσεις: </strong>" & rs("ArtWorkDimensions") & " cm</address>""><img src=""" & rs("ArtWorkThumbnailURL") & """></a>" & vbCrLf
+					resultBody = resultBody & "</div>" & vbCrLf
+					resultBody = resultBody & "</div>" & vbCrLf
+					
 
                     rs.MoveNext
                     If rs.EOF Then Exit For
@@ -194,55 +172,16 @@
 
                 'Print the footer
                 If results = 1 Then
-                    rHeader = results & " χρήστης"
+                    resultPane = resultPane & "Βρέθηκε " & results & " έργο."
                 Else
-                    rHeader = results & " χρήστες"
+                    resultPane = resultPane & "Βρέθηκαν " & results & " έργα."
                 End If
 
-                responseText = responseText & "<tr class=""headerRow"">" & vbCrLf
-                responseText = responseText & "<td class=""dataLS"" colspan=""2"">" & rHeader & "</td>" & vbCrLf
-                responseText = responseText & "<td class=""dataR"" colspan=""2"">" & vbCrLf
-
-                If page > 1 Then
-                    responseText = responseText & "<img src=""images/first.gif"" alt=""Αρχική Σελίδα"" title=""Αρχική Σελίδα"" border=""0"" onMouseOver=""this.style.cursor='pointer';"" onMouseOut=""this.style.cursor='default';"" onClick=""fetchCPanelUsers(1, " & expandMenu & ", document.getElementById('q').value, document.getElementById('qt').options[document.getElementById('qt').selectedIndex].value)"">&nbsp;" & vbCrLf
-                Else
-                    responseText = responseText & "<img src=""images/first.gif"" alt=""Αρχική Σελίδα"" title=""Αρχική Σελίδα"" border=""0"">&nbsp;" & vbCrLf                    
-                End If
-
-                If page > 1 Then
-                    responseText = responseText & "<img src=""images/prev.gif"" alt=""Προηγούμενη Σελίδα"" title=""Προηγούμενη Σελίδα"" border=""0"" onMouseOver=""this.style.cursor='pointer';"" onMouseOut=""this.style.cursor='default';"" onClick=""fetchCPanelUsers(" & prevpage & ", " & expandMenu & ", document.getElementById('q').value, document.getElementById('qt').options[document.getElementById('qt').selectedIndex].value)"">&nbsp;" & vbCrLf
-                Else
-                    responseText = responseText & "<img src=""images/prev.gif"" alt=""Προηγούμενη Σελίδα"" title=""Προηγούμενη Σελίδα""  border=""0"">&nbsp;" & vbCrLf
-                End If          
-
-                responseText = responseText & "Σελίδα:&nbsp;<select id=""navPage"" name=""page"" class=""fListBox"" onChange=""document.getElementById('dynLoader').style.display = 'block';document.getElementById('dynContent').style.display = 'none';fetchCPanelUsers(document.getElementById('navPage').options[document.getElementById('navPage').selectedIndex].value, " & expandMenu & ", document.getElementById('q').value, document.getElementById('qt').options[document.getElementById('qt').selectedIndex].value)"">" & vbCrLf
-
-                For i = 1 To pages
-                    If i = page Then
-                        selected = " selected"
-                    Else
-                        selected = ""
-                    End If
-                    responseText = responseText & "<option value=""" & i & """" & selected & ">" & i & "</option>" & vbCrLf
-                Next
-
-                responseText = responseText & "</select>&nbsp;" & vbCrLf
-
-                If page < pages Then
-                    responseText = responseText & "<img src=""images/next.gif"" alt=""Επόμενη Σελίδα"" title=""Επομενη Σελίδα"" border=""0"" onMouseOver=""this.style.cursor='pointer';"" onMouseOut=""this.style.cursor='default';"" onClick=""document.getElementById('dynLoader').style.display = 'block';document.getElementById('dynContent').style.display = 'none';fetchCPanelUsers(" & nextpage & ", " & expandMenu & ", document.getElementById('q').value, document.getElementById('qt').options[document.getElementById('qt').selectedIndex].value)"">&nbsp;" & vbCrLf
-                Else
-                    responseText = responseText & "<img src=""images/next.gif"" alt=""Επόμενη Σελίδα"" title=""Επομενη Σελίδα""border=""0"">&nbsp;" & vbCrLf
-                End If
-
-                If page < pages Then
-                    responseText = responseText & "<img src=""images/last.gif"" alt=""Τελευταία Σελίδα"" title=""Τελευταία Σελίδα"" border=""0"" onMouseOver=""this.style.cursor='pointer';"" onMouseOut=""this.style.cursor='default';"" onClick=""document.getElementById('dynLoader').style.display = 'block';document.getElementById('dynContent').style.display = 'none';fetchCPanelUsers(" & pages & ", " & expandMenu & ", document.getElementById('q').value, document.getElementById('qt').options[document.getElementById('qt').selectedIndex].value)"">&nbsp;" & vbCrLf
-                Else
-                    responseText = responseText & "<img src=""images/last.gif"" alt=""Τελευταία Σελίδα"" title=""Τελευταία Σελίδα"" border=""0"">&nbsp;" & vbCrLf                    
-                End If
-
-                responseText = responseText & "</td>" & vbCrLf
-                responseText = responseText & "</tr>" & vbCrLf
-                responseText = responseText & "</table>" & vbCrLf
+                'Fix the paging
+				resultPaging = resultPaging & "Σελίδα:&nbsp;" & vbCrLf
+				resultPaging = resultPaging & "<select id=""results-paging"" name=""results-paging"" class=""form-control input-sm"" style=""display:inline;width:60px;"">" & vbCrLf
+				resultPaging = resultPaging & buildNumberList(1, pages, 1, page)
+				resultPaging = resultPaging & "</select>" & vbCrLf
 
             End If
 
@@ -257,8 +196,10 @@
     Set dbAPI = Nothing
     Set secObj = Nothing
 
-	responseText = responseText & resultBody & "|-|"
-	responseText = responseText & resultPane & "|-|"
+	responseText = responseText & resultBody & "==="
+	responseText = responseText & resultPane & "==="
 	responseText = responseText & resultPaging
     
     Response.Write(responseText)
+	
+%>
